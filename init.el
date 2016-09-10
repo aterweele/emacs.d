@@ -94,6 +94,8 @@ was called"
 ;              "-interaction=nonstopmode" ; actually halt
 ;              fname)))
 
+(require 'secret)
+
 ;; other settings in custom
 (setq custom-file "~/.emacs.d/etc/custom.el")
 (load custom-file)
