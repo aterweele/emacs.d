@@ -14,6 +14,9 @@
 (mapc
  (lambda (hook) (add-hook hook (lambda () (evil-local-mode))))
  '(prog-mode-hook text-mode-hook))
+;; Untested, but I want to use paredit instead of evil for editing lisps.
+;; (mapc (lambda (hook) (add-hook hook (lambda () (evil-emacs-state nil))))
+;;       '(lisp-mode-hook))
 
 ;;; mail client
 ;(require 'notmuch)
@@ -100,13 +103,17 @@ was called"
 (setq custom-file "~/.emacs.d/etc/custom.el")
 (load custom-file)
 
+(defun recenter-top (_ignored) (recenter 0))
+(advice-add 'forward-page :after #'recenter-top)
+
 ;; emoji testing snippet
 ;(dotimes (i (- #x1F2FF #x1F200)) (insert-char (+ i #x1F200)))
 
 ;; Org
 ;; TODO: move to Customize.  Unfortunately, Customize always reports
 ;; it as "changed outside Customize"
-(setq org-mode-hook '(auto-fill-mode flyspell-mode))
+;;(setq org-mode-hook '(auto-fill-mode flyspell-mode))
+(setq org-mode-hook '(visual-line-mode variable-pitch-mode))
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)

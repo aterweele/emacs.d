@@ -1,0 +1,11 @@
+secret.el
+/auto-save-list/
+/backup/
+/elpa/
+/eshell/
+/games/
+/image-dired/
+/history
+/places
+/recentf
+/url/

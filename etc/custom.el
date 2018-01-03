@@ -50,15 +50,18 @@
  '(default-input-method "greek")
  '(display-battery-mode t)
  '(doc-view-continuous t)
- '(eldoc-idle-delay 0)
+ '(eldoc-idle-delay 0.1)
  '(electric-pair-mode t)
  '(elfeed-feeds
    (quote
-    (("https://stackoverflow.com/jobs/feed?location=Washington%2c+D.C.&range=50&distanceUnits=Miles" jobs)
-     "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "https://www.youtube.com/feeds/videos.xml?channel_id=UC0KaZd_ki4l2EUc1GY9u5Ew" "https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA" "https://www.youtube.com/feeds/videos.xml?channel_id=UCK3kaNXbB57CLcyhtccV_yw" "https://www.youtube.com/feeds/videos.xml?channel_id=UCgSHGbs2oGoLItc-8y5hJ9g" "https://www.youtube.com/feeds/videos.xml?channel_id=UCUK0HBIBWgM2c4vsPhkYY4w" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/feed.xml" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "https://xkcd.com/atom.xml" "http://emacshorrors.com/feed.atom")))
- '(erc-autojoin-channels-alist (quote (("freenode" "#emacs"))))
+    ("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "https://www.youtube.com/feeds/videos.xml?channel_id=UC0KaZd_ki4l2EUc1GY9u5Ew" "https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA" "https://www.youtube.com/feeds/videos.xml?channel_id=UCK3kaNXbB57CLcyhtccV_yw" "https://www.youtube.com/feeds/videos.xml?channel_id=UCgSHGbs2oGoLItc-8y5hJ9g" "https://www.youtube.com/feeds/videos.xml?channel_id=UCUK0HBIBWgM2c4vsPhkYY4w" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "https://xkcd.com/atom.xml" "http://emacshorrors.com/feed.atom")))
+ '(erc-autojoin-channels-alist (quote (("freenode" "#emacs" "#guix"))))
  '(erc-autojoin-timing (quote ident))
+ '(erc-join-buffer (quote bury))
  '(erc-lurker-hide-list (quote ("JOIN" "PART" "QUIT")))
+ '(erc-mode-hook
+   (quote
+    (erc-munge-invisibility-spec erc-move-to-prompt-setup erc-button-setup pcomplete-erc-setup erc-imenu-setup visual-line-mode)))
  '(erc-modules
    (quote
     (completion services hl-nicks netsplit fill button match track readonly networks ring autojoin noncommands irccontrols move-to-prompt stamp menu list)))
@@ -317,7 +320,7 @@
      (ZiRC "zirc.org")
      (ZUHnet "zuh.net")
      (Zurna "zurna.net"))))
- '(erc-nick "lostcoffee")
+ '(erc-nick "atw")
  '(erc-prompt-for-nickserv-password nil)
  '(erc-rename-buffers t)
  '(erc-server-alist
@@ -999,6 +1002,7 @@
  '(erc-server-reconnect-attempts t)
  '(erc-server-reconnect-timeout 10)
  '(erc-services-mode t)
+ '(erc-user-full-name "Alex ter Weele")
  '(evil-want-fine-undo (quote fine))
  '(flymake-allowed-file-name-masks
    (quote
@@ -1031,6 +1035,7 @@
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-indent-messages-width 2)
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-files (quote ("~/.emacs.d/org")))
  '(orgstruct-setup-hook (quote (auto-fill-mode flyspell-mode)))
  '(package-archives
    (quote
@@ -1038,7 +1043,7 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (geiser paredit erc-hl-nicks slime-volleyball steam form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch)))
+    (debbugs ercn leerzeichen geiser paredit erc-hl-nicks form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch org)))
  '(savehist-mode t)
  '(scroll-bar-mode (quote right))
  '(scroll-conservatively 101)
