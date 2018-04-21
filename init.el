@@ -119,6 +119,9 @@ was called"
 ;;(setq org-mode-hook '(auto-fill-mode flyspell-mode))
 (setq org-mode-hook '(visual-line-mode variable-pitch-mode))
 
+(bbdb-initialize 'gnus 'message)
+(bbdb-mua-auto-update-init 'gnus 'message)
+
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
