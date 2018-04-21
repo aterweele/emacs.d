@@ -103,6 +103,8 @@ was called"
 
 (require 'secret)
 
+(require 'erc-image)
+
 ;; other settings in custom
 (setq custom-file "~/.emacs.d/etc/custom.el")
 (load custom-file)
