@@ -93,13 +93,23 @@ was called"
              "rms has already lost.")))
     (message (nth (random (length l)) l))))
 
-;; flymake/pdflatex have to be forcibly mated
-;(defun flymake-get-tex-args (fname)
-;  (list "pdflatex"
-;        (list "-file-line-error"         ; flymake can kinda parse this
-;              "-draftmode"               ; don't make an _flymake.pdf
-;              "-interaction=nonstopmode" ; actually halt
-;              fname)))
+;; texify doesn't seem to be installed with texlive.
+(defun flymake-get-tex-args (fname)
+  ;; This is what TeX-command does. Unfortunately it does not yield a list.
+  ;; (TeX-command-expand (nth 1 (assoc "LaTeX" TeX-command-list))
+  ;;                     ;; #'TeX-master-file
+  ;;                     fname)
+  
+  ;; The following is based on the above and on
+  ;; https://www.emacswiki.org/emacs/FlymakeTex#toc2.
+  (list "xelatex"
+        (list "-file-line-error"         ; flymake can kinda parse this
+              "-draftmode"               ; compile faster, sans images.
+              "-interaction=nonstopmode" ; actually halt
+              fname))
+  ;; compilation is redirected to _flymake.pdf, so remember to compile
+  ;; for real to generate the real .pdf.
+  )
 
 (require 'secret)
 
