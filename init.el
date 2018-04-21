@@ -44,6 +44,8 @@
 ;; dropdown to open a little dropdown?
 (global-set-key (kbd "<menu>") 'menu-bar-open)
 
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; Shift-arrows to move between windows
 (windmove-default-keybindings)
 
