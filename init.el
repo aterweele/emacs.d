@@ -122,6 +122,11 @@ was called"
 (bbdb-initialize 'gnus 'message)
 (bbdb-mua-auto-update-init 'gnus 'message)
 
+;; projectile
+(projectile-global-mode)
+(require 'helm-projectile)
+(helm-projectile-on)
+
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
