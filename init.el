@@ -147,9 +147,4 @@ was called"
 (put 'TeX-narrow-to-group 'disabled nil)
 (put 'LaTeX-narrow-to-environment 'disabled nil)
 
-(require 'f)
-;; This overgeneralizes, but allows one REPL to access any module of
-;; any project I'm developing
-(setq geiser-guile-load-path (f-entries "~/src"))
-
 (require 'nnreddit)
