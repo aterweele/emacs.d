@@ -8,6 +8,8 @@
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
 
+(push "~/.emacs.d/manual-packages/nnreddit" load-path)
+
 ;; evil-mode
 (require 'evil)
 ;; only activate evil in buffers that seem to be for text editing
@@ -144,3 +146,5 @@ was called"
 (put 'narrow-to-region 'disabled nil)
 (put 'TeX-narrow-to-group 'disabled nil)
 (put 'LaTeX-narrow-to-environment 'disabled nil)
+
+(require 'nnreddit)
