@@ -130,8 +130,8 @@ was called"
 ;; Org
 ;; TODO: move to Customize.  Unfortunately, Customize always reports
 ;; it as "changed outside Customize"
-;;(setq org-mode-hook '(auto-fill-mode flyspell-mode))
-(setq org-mode-hook '(visual-line-mode variable-pitch-mode))
+(setq org-mode-hook '(auto-fill-mode flyspell-mode))
+;; (setq org-mode-hook '(visual-line-mode variable-pitch-mode))
 
 (bbdb-initialize 'gnus 'message)
 (bbdb-mua-auto-update-init 'gnus 'message)
