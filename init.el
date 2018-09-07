@@ -124,6 +124,10 @@ was called"
 (defun recenter-top (_ignored) (recenter 0))
 (advice-add 'forward-page :after #'recenter-top)
 
+(with-eval-after-load 'paredit
+  (define-key paredit-mode-map
+    [remap reposition-window] 'paredit-recenter-on-defun))
+
 ;; emoji testing snippet
 ;(dotimes (i (- #x1F2FF #x1F200)) (insert-char (+ i #x1F200)))
 
