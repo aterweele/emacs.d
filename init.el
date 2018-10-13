@@ -53,7 +53,7 @@
 
 ;; my custom function for Wiktionary lookup.
 ;; TODO: move it to its own file somewhere
-(defun wikt (beg end)
+(defun browse-word-at-point-wiktionary (beg end)
   "Wiktionary lookup"
   (interactive "r")
   (let ((word (if (use-region-p)
@@ -61,9 +61,9 @@
                 (thing-at-point 'word t))))
     (browse-url
      (format "https://en.wiktionary.org/wiki/%s" word))))
-;; and bind to evil's zw
-;; TODO: maybe bind to something non-evil so that I can get wikt easily outside of evil
-(define-key evil-normal-state-map (kbd "zw") #'wikt)
+;; and bind to evil's zw TODO: maybe bind to something non-evil so
+;; that I can get wikt easily outside of evil
+(define-key evil-normal-state-map (kbd "zw") #'browse-word-at-point-wiktionary)
 
 ;; from wasamasa's init.org.
 ;; TODO: it sure would be nice if a package provided this
