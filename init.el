@@ -8,12 +8,27 @@
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
 
-;; evil-mode
+;;; evil-mode
 (require 'evil)
-;; only activate evil in buffers that seem to be for text editing
-(mapc
- (lambda (hook) (add-hook hook (lambda () (evil-local-mode))))
- '(prog-mode-hook text-mode-hook))
+
+;; ;; only activate evil in buffers that seem to be for text editing
+;; (mapc
+;;  (lambda (hook) (add-hook hook (lambda () (evil-local-mode))))
+;;  '(prog-mode-hook text-mode-hook))
+
+;; ;; and deactivate by default for lisps
+(setq lisp-modes-hooks '(lisp-mode-hook clojure-mode-hook cider-repl-mode-hook))
+;; (mapc (lambda (hook) (add-hook hook (lambda () (evil-emacs-state nil))))
+;;       lisp-modes-hooks)
+;; TODO: find syntactic abstraction for "do for all hooks"
+
+(mapc (lambda (hook)
+        (add-hook hook #'enable-paredit-mode)
+        (add-hook hook #'aggressive-indent-mode))
+      lisp-modes-hooks)
+
+(with-eval-after-load 'paredit
+  (define-key paredit-mode-map [remap reposition-window] 'paredit-recenter-on-defun))
 
 ;;; mail client
 ;(require 'notmuch)
@@ -31,6 +46,7 @@
 (require 'helm-config)
 (helm-mode 1)
 (define-key global-map [remap find-file] 'helm-find-files)
+(define-key global-map (kbd "C-c o") 'occur)
 (define-key global-map [remap occur] 'helm-occur)
 (define-key global-map [remap list-buffers] 'helm-buffers-list)
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -41,6 +57,11 @@
 
 ;; Shift-arrows to move between windows
 (windmove-default-keybindings)
+;; this conflicts with Org, see (info "(Org)Conflicts")
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; my custom function for Wiktionary lookup.
 ;; TODO: move it to its own file somewhere
@@ -56,28 +77,7 @@
 ;; TODO: maybe bind to something non-evil so that I can get wikt easily outside of evil
 (define-key evil-normal-state-map (kbd "zw") #'wikt)
 
-;; from wasamasa's init.org.
-;; TODO: it sure would be nice if a package provided this
-;; FIXME: switch to wayland and stop using x11
-(defun wasamasa-x-urgency-hint ()
-  "set the X11 urgency hint on the X11 window from which the function
-was called"
-  (let* ((hints "WM_HINTS")
-         (wm-hints (append (x-window-property hints nil hints nil nil t) nil))
-         (flags (car wm-hints)))
-    (setcar wm-hints (logior flags (lsh 1 8)))
-    (x-change-window-property hints wm-hints nil hints 32 t)))
-(add-hook 'erc-echo-notice-always-hook
-          (lambda (string servmess buffer sender) (wasamasa-x-urgency-hint)))
 
-(defun my-play-sound (file)
-  "play the wav in `file'"
-  ;(start-process "sound-proc" nil "aplay" file)
-  (make-process
-   :name "sound-proc"
-   :buffer nil
-   :command '("/usr/bin/aplay" "~/.emacs.d/etc/sounds/bell.wav"))
-  )
 
 ;; I love you, FSF, but I'm not *in* love with you
 (defun display-startup-echo-area-message ()
@@ -85,14 +85,6 @@ was called"
              "The world isn't ready for free software."
              "rms has already lost.")))
     (message (nth (random (length l)) l))))
-
-;; flymake/pdflatex have to be forcibly mated
-;(defun flymake-get-tex-args (fname)
-;  (list "pdflatex"
-;        (list "-file-line-error"         ; flymake can kinda parse this
-;              "-draftmode"               ; don't make an _flymake.pdf
-;              "-interaction=nonstopmode" ; actually halt
-;              fname)))
 
 (require 'secret)
 
@@ -106,7 +98,61 @@ was called"
 ;; Org
 ;; TODO: move to Customize.  Unfortunately, Customize always reports
 ;; it as "changed outside Customize"
-(setq org-mode-hook '(auto-fill-mode flyspell-mode))
+(setq org-mode-hook '(auto-fill-mode))
+
+;; set PATH properly using the exec-path-from-shell package.
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;; use ggtags.
+(add-hook 'csharp-mode-hook
+          (lambda () (ggtags-mode 1)))
+(add-hook 'c-mode-hook
+          (lambda () (ggtags-mode 1)))
+;; also for C#: use omnisharp.
+;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
+;; don't turn on omnisharp; ggtags is good enough for what I do.
+
+(projectile-mode 1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(helm-projectile-on)
+
+;;; SQL
+(load-library "sql-servers-autogen.el.gpg")
+
+;; Postgres doesn't take a password via command-line flag:
+;; https://stackoverflow.com/a/26743233
+(require 'sql)
+(defun sql-set-pgpassword
+    (&rest _ignored)
+  (setenv "PGPASSWORD" (default-value 'sql-password)))
+(advice-add 'sql-product-interactive :before #'sql-set-pgpassword)
+
+(defun sql-connect-better (name)
+  "Like `sql-connect' but fixed so that `sql-product' and buffer name are set automatically.
+NAME is the name of the connection in `sql-connection-alist'.
+
+Apapted from https://www.emacswiki.org/emacs/SqlMode."
+  (interactive (list (sql-read-connection "Connection: " nil '(nil))))
+  (setq sql-product (or (cadr (cadr (assoc 'sql-product (cdr (assoc name sql-connection-alist)))))
+                        sql-product))
+  (sql-connect name name))
+
+;; Polaris projects
+(defun polaris-with-environment (f &rest args)
+  (if (boundp 'polaris-env)
+      (let ((process-environment (cons (format "POLARIS_ENV=%s" polaris-env) process-environment)))
+        (apply f args))
+    (apply f args)))
+(advice-add 'nrepl-start-server-process :around #'polaris-with-environment)
+
+;; Presentations
+(defun selected-frame-presentation-start ()
+  "Set the :height of the 'default face to 200."
+  (interactive)
+  (set-face-attribute 'default (selected-frame) :height 200))
+
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
