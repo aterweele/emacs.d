@@ -23,8 +23,7 @@
 ;; TODO: find syntactic abstraction for "do for all hooks"
 
 (mapc (lambda (hook)
-        (add-hook hook #'enable-paredit-mode)
-        (add-hook hook #'aggressive-indent-mode))
+        (add-hook hook #'enable-paredit-mode))
       lisp-modes-hooks)
 
 (with-eval-after-load 'paredit
@@ -88,6 +87,8 @@
 
 (require 'secret)
 
+(require 'clojure-mode-custom)
+
 ;; other settings in custom
 (setq custom-file "~/.emacs.d/etc/custom.el")
 (load custom-file)
@@ -99,6 +100,8 @@
 ;; TODO: move to Customize.  Unfortunately, Customize always reports
 ;; it as "changed outside Customize"
 (setq org-mode-hook '(auto-fill-mode))
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; set PATH properly using the exec-path-from-shell package.
 (when (memq window-system '(mac ns x))
@@ -118,6 +121,7 @@
 (helm-projectile-on)
 
 ;;; SQL
+;; TODO
 (load-library "sql-servers-autogen.el.gpg")
 
 ;; Postgres doesn't take a password via command-line flag:
@@ -153,6 +157,15 @@ Apapted from https://www.emacswiki.org/emacs/SqlMode."
   (set-face-attribute 'default (selected-frame) :height 200))
 
 (global-set-key (kbd "C-x g") 'magit-status)
+(setenv "GIT_PAGER" "cat")
+
+;; my pure elisp impl of pass(1)'s copy. 
+(require 'auth-store-pass-extra)
+(global-set-key (kbd "C-c M-p c") 'auth-source-pass-copy)
+
+;; Hyperbole
+(with-eval-after-load 'hpath
+  (setq hpath:rfc "/https://www.ietf.org/rfc/rfc%s.txt"))
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)

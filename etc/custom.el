@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata"))))
+ '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Menlo"))))
  '(cursor ((t (:background "#E17B1D")))))
 
 (custom-set-variables
@@ -29,11 +29,13 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(apropos-do-all t)
+ '(auth-sources (quote ("~/.authinfo.gpg" password-store)))
  '(auto-revert-interval 2)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup"))))
  '(battery-mode-line-format "[%b%p%% %t]")
  '(blink-cursor-mode nil)
- '(browse-url-browser-function (quote browse-url-firefox))
+ '(browse-url-browser-function (quote browse-url-generic))
+ '(browse-url-generic-program "open")
  '(c-default-style
    (quote
     ((java-mode . "gnu")
@@ -41,11 +43,21 @@
      (other . "gnu"))))
  '(calendar-latitude 42)
  '(calendar-longitude -76)
+ '(cider-prompt-for-symbol nil)
+ '(cider-repl-display-help-banner nil)
+ '(cider-repl-display-in-current-window t)
+ '(cider-repl-prompt-function (lambda (ns) (format "(in-ns '%s) ;; π
+" ns)))
+ '(cider-save-file-on-load t)
  '(comint-prompt-read-only t)
  '(compilation-scroll-output (quote first-error))
  '(compile-command "make -k -j4")
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
+ '(custom-enabled-themes (quote (punpun-light)))
+ '(custom-safe-themes
+   (quote
+    ("39fe48be738ea23b0295cdf17c99054bb439a7d830248d7e6493c2110bfed6f8" default)))
  '(debug-on-error nil)
  '(default-input-method "greek")
  '(display-battery-mode t)
@@ -56,6 +68,8 @@
    (quote
     (("https://stackoverflow.com/jobs/feed?location=Washington%2c+D.C.&range=50&distanceUnits=Miles" jobs)
      "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "https://www.youtube.com/feeds/videos.xml?channel_id=UC0KaZd_ki4l2EUc1GY9u5Ew" "https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA" "https://www.youtube.com/feeds/videos.xml?channel_id=UCK3kaNXbB57CLcyhtccV_yw" "https://www.youtube.com/feeds/videos.xml?channel_id=UCgSHGbs2oGoLItc-8y5hJ9g" "https://www.youtube.com/feeds/videos.xml?channel_id=UCUK0HBIBWgM2c4vsPhkYY4w" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/feed.xml" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "https://xkcd.com/atom.xml" "http://emacshorrors.com/feed.atom")))
+ '(enable-recursive-minibuffers t)
+ '(epa-pinentry-mode (quote loopback))
  '(erc-autojoin-channels-alist (quote (("freenode" "#emacs"))))
  '(erc-autojoin-timing (quote ident))
  '(erc-lurker-hide-list (quote ("JOIN" "PART" "QUIT")))
@@ -1000,6 +1014,9 @@
  '(erc-server-reconnect-timeout 10)
  '(erc-services-mode t)
  '(evil-want-fine-undo (quote fine))
+ '(exec-path-from-shell-variables
+   (quote
+    ("PATH" "MANPATH" "VAULT_ADDR" "AWS_SDK_LOAD_CONFIG")))
  '(flymake-allowed-file-name-masks
    (quote
     (("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init nil nil)
@@ -1012,13 +1029,29 @@
      ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup nil)
      ("\\.tex\\'" flymake-simple-tex-init nil nil)
      ("\\.idl\\'" flymake-simple-make-init nil nil))))
+ '(flymake-proc-allowed-file-name-masks
+   (quote
+    (("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init nil nil)
+     ("\\.xml\\'" flymake-xml-init nil nil)
+     ("\\.html?\\'" flymake-xml-init nil nil)
+     ("\\.cs\\'" flymake-simple-make-init nil nil)
+     ("\\.p[ml]\\'" flymake-perl-init nil nil)
+     ("\\.php[345]?\\'" flymake-php-init nil nil)
+     ("\\.h\\'" flymake-master-make-header-init flymake-master-cleanup nil)
+     ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup nil)
+     ("\\.tex\\'" flymake-simple-tex-init nil nil)
+     ("\\.idl\\'" flymake-simple-make-init nil nil))))
  '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(global-hl-todo-mode t)
  '(global-linum-mode nil)
  '(gnutls-min-prime-bits 1024)
  '(gnutls-verify-error t)
  '(help-mode-hook (quote (form-feed-mode)))
+ '(hs-isearch-open t)
  '(indent-tabs-mode nil)
- '(menu-bar-mode nil)
+ '(ispell-program-name "aspell")
+ '(magit-tag-arguments (quote ("--annotate" "--sign")))
+ '(menu-bar-mode t)
  '(message-kill-buffer-on-exit t)
  '(notmuch-saved-searches
    (quote
@@ -1030,7 +1063,11 @@
      (:name "all mail" :query "*" :key "a"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-indent-messages-width 2)
+ '(nxml-sexp-element-flag t)
  '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-files (quote ("~/.emacs.d/org" "~/src")))
+ '(org-default-notes-file (concat org-directory "/notes.org"))
+ '(org-directory "~/.emacs.d/org")
  '(orgstruct-setup-hook (quote (auto-fill-mode flyspell-mode)))
  '(package-archives
    (quote
@@ -1038,9 +1075,16 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (geiser paredit erc-hl-nicks slime-volleyball steam form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch)))
+    (hyperbole ensime csharp-mode restclient go-mode ggtags god-mode paredit erc-hl-nicks form-feed helm evil magit cider exec-path-from-shell projectile helm-projectile helm-pass punpun-theme markdown-mode yaml-mode gist forge kubernetes hl-todo csv-mode)))
+ '(password-store-password-length 32)
+ '(ring-bell-function (quote ignore))
+ '(safe-local-variable-values
+   (quote
+    ((polaris-env . "dev")
+     (polaris-env . "prod")
+     (polaris-env . "jv"))))
  '(savehist-mode t)
- '(scroll-bar-mode (quote right))
+ '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
