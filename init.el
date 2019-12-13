@@ -19,7 +19,7 @@
 (mapc (lambda (hook) (add-hook hook (lambda ()
                                       (evil-emacs-state nil)
                                       (paredit-mode))))
-      '(lisp-mode-hook scheme-mode-hook emacs-lisp-mode-hook))
+      '(lisp-mode-hook scheme-mode-hook emacs-lisp-mode-hook clojure-mode-hook))
 
 ;;; mail client
 ;(require 'notmuch)
