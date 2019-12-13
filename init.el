@@ -144,6 +144,7 @@ was called"
 (projectile-global-mode)
 (require 'helm-projectile)
 (helm-projectile-on)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
