@@ -8,15 +8,7 @@
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
 
-;; evil-mode
-(require 'evil)
-;; only activate evil in buffers that seem to be for text editing
-(mapc (lambda (hook) (add-hook hook (lambda () (evil-local-mode))))
-      '(prog-mode-hook text-mode-hook))
-;; use paredit instead of evil for editing lisps.
-(mapc (lambda (hook) (add-hook hook (lambda ()
-                                      (evil-emacs-state nil)
-                                      (paredit-mode))))
+(mapc (lambda (hook) (add-hook hook #'enable-paredit-mode))
       '(lisp-mode-hook scheme-mode-hook emacs-lisp-mode-hook clojure-mode-hook))
 
 ;;; mail client
@@ -59,9 +51,6 @@
                 (thing-at-point 'word t))))
     (browse-url
      (format "https://en.wiktionary.org/wiki/%s" word))))
-;; and bind to evil's zw TODO: maybe bind to something non-evil so
-;; that I can get wikt easily outside of evil
-(define-key evil-normal-state-map (kbd "zw") #'browse-word-at-point-wiktionary)
 
 ;; from wasamasa's init.org.
 ;; TODO: it sure would be nice if a package provided this
