@@ -29,6 +29,7 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(apropos-do-all t)
+ '(auth-sources (quote ("~/.authinfo.gpg" password-store)))
  '(auto-revert-interval 2)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup"))))
  '(battery-mode-line-format "[%b%p%% %t]")
@@ -50,6 +51,10 @@
  '(calendar-latitude 42)
  '(calendar-longitude -76)
  '(cider-prompt-for-symbol nil)
+ '(cider-repl-display-help-banner nil)
+ '(cider-repl-display-in-current-window t)
+ '(cider-repl-prompt-function (lambda (ns) (format "(in-ns '%s) ;; π
+" ns)))
  '(cider-save-file-on-load t)
  '(comint-prompt-read-only t)
  '(compilation-scroll-output (quote first-error))
@@ -69,6 +74,8 @@
  '(elfeed-feeds
    (quote
     ("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "http://emacshorrors.com/feed.atom")))
+ '(enable-recursive-minibuffers t)
+ '(epa-pinentry-mode (quote loopback))
  '(erc-autojoin-channels-alist
    (quote
     (("freenode" "#emacs" "#guix" "#lobsters" "#clojure" "#gnus"))))
@@ -1057,6 +1064,7 @@
  '(gdb-many-windows t)
  '(geiser-default-implementation (quote guile))
  '(geiser-mode-smart-tab-p t)
+ '(global-hl-todo-mode t)
  '(global-linum-mode nil)
  '(gnus-group-mode-hook (quote (gnus-agent-mode)))
  '(gnus-group-sort-function
@@ -1082,8 +1090,11 @@
     ("--manifest=/home/alex/src/guix-conf/user-services.scm")))
  '(helm-external-programs-associations (quote (("html" . "icecat"))))
  '(help-mode-hook (quote (form-feed-mode)))
+ '(hs-isearch-open t)
  '(indent-tabs-mode nil)
- '(menu-bar-mode nil)
+ '(ispell-program-name "aspell")
+ '(magit-tag-arguments (quote ("--annotate" "--sign")))
+ '(menu-bar-mode t)
  '(message-kill-buffer-on-exit t)
  '(mouse-yank-at-point t)
  '(mpc-host "/tmp/mpd.socket")

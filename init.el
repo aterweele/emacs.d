@@ -8,8 +8,19 @@
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
 
-(mapc (lambda (hook) (add-hook hook #'enable-paredit-mode))
-      '(lisp-mode-hook scheme-mode-hook emacs-lisp-mode-hook clojure-mode-hook))
+(setq lisp-modes-hooks
+      '(lisp-mode-hook
+        scheme-mode-hook
+        emacs-lisp-mode-hook
+        clojure-mode-hook cider-repl-mode-hook))
+(mapc (lambda (hook)
+        (add-hook hook #'enable-paredit-mode))
+      lisp-modes-hooks)
+
+(with-eval-after-load 'paredit
+  (define-key paredit-mode-map
+    [remap reposition-window]
+    'paredit-recenter-on-defun))
 
 ;;; mail client
 ;(require 'notmuch)
@@ -40,6 +51,11 @@
 
 ;; Shift-arrows to move between windows
 (windmove-default-keybindings)
+;; this conflicts with Org, see (info "(Org)Conflicts")
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 ;; my custom function for Wiktionary lookup.
 ;; TODO: move it to its own file somewhere
@@ -52,28 +68,7 @@
     (browse-url
      (format "https://en.wiktionary.org/wiki/%s" word))))
 
-;; from wasamasa's init.org.
-;; TODO: it sure would be nice if a package provided this
-;; FIXME: switch to wayland and stop using x11
-(defun wasamasa-x-urgency-hint ()
-  "set the X11 urgency hint on the X11 window from which the function
-was called"
-  (let* ((hints "WM_HINTS")
-         (wm-hints (append (x-window-property hints nil hints nil nil t) nil))
-         (flags (car wm-hints)))
-    (setcar wm-hints (logior flags (lsh 1 8)))
-    (x-change-window-property hints wm-hints nil hints 32 t)))
-(add-hook 'erc-echo-notice-always-hook
-          (lambda (string servmess buffer sender) (wasamasa-x-urgency-hint)))
 
-(defun my-play-sound (file)
-  "play the wav in `file'"
-  ;(start-process "sound-proc" nil "aplay" file)
-  (make-process
-   :name "sound-proc"
-   :buffer nil
-   :command '("/usr/bin/aplay" "~/.emacs.d/etc/sounds/bell.wav"))
-  )
 
 ;; I love you, FSF, but I'm not *in* love with you
 (defun display-startup-echo-area-message ()
@@ -88,7 +83,7 @@ was called"
   ;; (TeX-command-expand (nth 1 (assoc "LaTeX" TeX-command-list))
   ;;                     ;; #'TeX-master-file
   ;;                     fname)
-  
+
   ;; The following is based on the above and on
   ;; https://www.emacswiki.org/emacs/FlymakeTex#toc2.
   (list "xelatex"
@@ -137,6 +132,14 @@ was called"
 (global-set-key (kbd "<escape>") 'god-mode-all)
 (with-eval-after-load 'god-mode
   (define-key god-local-mode-map (kbd ".") 'repeat))
+
+;; Presentations
+(defun selected-frame-presentation-start ()
+  "Set the :height of the 'default face to 200."
+  (interactive)
+  (set-face-attribute 'default (selected-frame) :height 200))
+
+(global-set-key (kbd "C-c M-p c") 'auth-source-pass-copy)
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
