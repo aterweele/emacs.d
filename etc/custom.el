@@ -22,7 +22,7 @@
      ((output-dvi style-pstricks)
       "dvips and gv")
      (output-dvi "xdvi")
-     (output-pdf "xdg-open")
+     (output-pdf "PDF Tools")
      (output-html "xdg-open"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
@@ -32,6 +32,14 @@
  '(auto-revert-interval 2)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup"))))
  '(battery-mode-line-format "[%b%p%% %t]")
+ '(bbdb-ignore-message-alist
+   (quote
+    (("From" . ".*@linkedin.com")
+     ("From" . ".*@debbugs.gnu.org")
+     ("From" . ".*@meetup.com")
+     ("From" . ".*@gwene.org"))))
+ '(bbdb-mua-pop-up nil)
+ '(bbdb-update-records-p (quote create))
  '(blink-cursor-mode nil)
  '(browse-url-browser-function (quote browse-url-firefox))
  '(c-default-style
@@ -41,22 +49,33 @@
      (other . "gnu"))))
  '(calendar-latitude 42)
  '(calendar-longitude -76)
+ '(cider-prompt-for-symbol nil)
+ '(cider-save-file-on-load t)
  '(comint-prompt-read-only t)
  '(compilation-scroll-output (quote first-error))
  '(compile-command "make -k -j4")
  '(confirm-kill-emacs (quote yes-or-no-p))
  '(current-language-environment "UTF-8")
+ '(custom-safe-themes
+   (quote
+    ("39fe48be738ea23b0295cdf17c99054bb439a7d830248d7e6493c2110bfed6f8" default)))
+ '(debbugs-gnu-default-packages (quote ("guix-patches")))
  '(debug-on-error nil)
- '(default-input-method "greek")
+ '(default-input-method "latin-prefix")
  '(display-battery-mode t)
  '(doc-view-continuous t)
  '(eldoc-idle-delay 0.1)
  '(electric-pair-mode t)
  '(elfeed-feeds
    (quote
-    ("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "https://www.youtube.com/feeds/videos.xml?channel_id=UC0KaZd_ki4l2EUc1GY9u5Ew" "https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA" "https://www.youtube.com/feeds/videos.xml?channel_id=UCK3kaNXbB57CLcyhtccV_yw" "https://www.youtube.com/feeds/videos.xml?channel_id=UCgSHGbs2oGoLItc-8y5hJ9g" "https://www.youtube.com/feeds/videos.xml?channel_id=UCUK0HBIBWgM2c4vsPhkYY4w" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "https://xkcd.com/atom.xml" "http://emacshorrors.com/feed.atom")))
- '(erc-autojoin-channels-alist (quote (("freenode" "#emacs" "#guix"))))
+    ("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "http://emacshorrors.com/feed.atom")))
+ '(erc-autojoin-channels-alist
+   (quote
+    (("freenode" "#emacs" "#guix" "#lobsters" "#clojure" "#gnus"))))
  '(erc-autojoin-timing (quote ident))
+ '(erc-echo-timestamps t)
+ '(erc-hide-timestamps t)
+ '(erc-image-inline-rescale 256)
  '(erc-join-buffer (quote bury))
  '(erc-lurker-hide-list (quote ("JOIN" "PART" "QUIT")))
  '(erc-mode-hook
@@ -64,7 +83,7 @@
     (erc-munge-invisibility-spec erc-move-to-prompt-setup erc-button-setup pcomplete-erc-setup erc-imenu-setup visual-line-mode)))
  '(erc-modules
    (quote
-    (completion services hl-nicks netsplit fill button match track readonly networks ring autojoin noncommands irccontrols move-to-prompt stamp menu list)))
+    (completion services hl-nicks netsplit fill button match track readonly networks ring autojoin noncommands irccontrols move-to-prompt stamp menu list image)))
  '(erc-networks-alist
    (quote
     ((4-irc "4-irc.com")
@@ -321,6 +340,8 @@
      (ZUHnet "zuh.net")
      (Zurna "zurna.net"))))
  '(erc-nick "atw")
+ '(erc-notifications-mode t)
+ '(erc-pals (quote ("Apteryx" "marusisch" "technomancy")))
  '(erc-prompt-for-nickserv-password nil)
  '(erc-rename-buffers t)
  '(erc-server-alist
@@ -1002,6 +1023,22 @@
  '(erc-server-reconnect-attempts t)
  '(erc-server-reconnect-timeout 10)
  '(erc-services-mode t)
+ '(erc-track-faces-priority-list
+   (quote
+    (erc-error-face
+     (erc-nick-default-face erc-current-nick-face)
+     erc-current-nick-face erc-keyword-face
+     (erc-nick-default-face erc-pal-face)
+     erc-pal-face erc-nick-msg-face erc-direct-msg-face
+     (erc-button erc-default-face)
+     (erc-nick-default-face erc-dangerous-host-face)
+     erc-dangerous-host-face erc-nick-default-face
+     (erc-nick-default-face erc-default-face)
+     erc-default-face erc-action-face
+     (erc-nick-default-face erc-fool-face)
+     erc-fool-face erc-input-face erc-prompt-face)))
+ '(erc-track-priority-faces-only (quote all))
+ '(erc-track-shorten-start 8)
  '(erc-user-full-name "Alex ter Weele")
  '(evil-want-fine-undo (quote fine))
  '(flymake-allowed-file-name-masks
@@ -1017,16 +1054,41 @@
      ("\\.tex\\'" flymake-simple-tex-init nil nil)
      ("\\.idl\\'" flymake-simple-make-init nil nil))))
  '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(gdb-many-windows t)
  '(geiser-default-implementation (quote guile))
- '(geiser-guile-load-path (quote ("~/src")))
  '(geiser-mode-smart-tab-p t)
  '(global-linum-mode nil)
+ '(gnus-group-mode-hook (quote (gnus-agent-mode)))
+ '(gnus-group-sort-function
+   (quote
+    (gnus-group-sort-by-method gnus-group-sort-by-server gnus-group-sort-by-alphabet)))
+ '(gnus-message-archive-group nil)
+ '(gnus-parameters
+   (quote
+    (("nnreddit.*"
+      (display
+       (quote all))
+      (gnus-summary-goto-unread
+       (quote never))))))
+ '(gnus-save-newsrc-file nil)
+ '(gnus-secondary-select-methods (quote ((nnimap "imap.gmail.com" (nnimap-stream ssl)))))
+ '(gnus-select-method (quote (nnnil "")))
+ '(gnus-startup-file "~/.emacs.d/gnus/.newsrc")
+ '(gnutls-algorithm-priority "SECURE128")
  '(gnutls-min-prime-bits 1024)
  '(gnutls-verify-error t)
+ '(guix-package-arguments
+   (quote
+    ("--manifest=/home/alex/src/guix-conf/user-services.scm")))
+ '(helm-external-programs-associations (quote (("html" . "icecat"))))
  '(help-mode-hook (quote (form-feed-mode)))
  '(indent-tabs-mode nil)
  '(menu-bar-mode nil)
  '(message-kill-buffer-on-exit t)
+ '(mouse-yank-at-point t)
+ '(mpc-host "/tmp/mpd.socket")
+ '(network-security-level (quote medium))
+ '(nnreddit-preview-width 780)
  '(notmuch-saved-searches
    (quote
     ((:name "inbox" :query "tag:inbox" :key "i")
@@ -1037,6 +1099,7 @@
      (:name "all mail" :query "*" :key "a"))))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-indent-messages-width 2)
+ '(nxml-sexp-element-flag t)
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/.emacs.d/org")))
  '(orgstruct-setup-hook (quote (auto-fill-mode flyspell-mode)))
@@ -1046,12 +1109,22 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (debbugs ercn leerzeichen geiser paredit erc-hl-nicks form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch org)))
+    (erc-image punpun-theme cobol-mode debbugs ercn leerzeichen geiser paredit erc-hl-nicks form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch org)))
+ '(proced-auto-update-flag t)
+ '(safe-local-variable-values
+   (quote
+    ((eval form-feed-mode t)
+     (eval push "/home/alex/src/guix" geiser-guile-load-path)
+     (eval modify-syntax-entry 43 "'")
+     (eval modify-syntax-entry 36 "'")
+     (eval modify-syntax-entry 126 "'")
+     (bug-reference-bug-regexp . "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>"))))
  '(savehist-mode t)
- '(scroll-bar-mode (quote right))
+ '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
+ '(slack-buffer-emojify t)
  '(smtpmail-smtp-server "smtp.gmail.com")
  '(smtpmail-smtp-service 465)
  '(smtpmail-stream-type (quote ssl))
@@ -1061,4 +1134,8 @@
  '(url-queue-timeout 10)
  '(use-file-dialog nil)
  '(whitespace-global-modes (quote (text-mode prog-mode)))
- '(whitespace-style (quote (face lines-tail trailing tabs))))
+ '(whitespace-style (quote (face lines-tail trailing tabs)))
+ '(znc-servers
+   (quote
+    (("localhost" 6660 nil
+      ((freenode "root" "hunter2")))))))
