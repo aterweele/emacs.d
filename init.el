@@ -8,8 +8,6 @@
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
 
-(push "~/.emacs.d/manual-packages/nnreddit" load-path)
-
 ;; evil-mode
 (require 'evil)
 ;; only activate evil in buffers that seem to be for text editing
