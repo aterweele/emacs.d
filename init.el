@@ -146,6 +146,11 @@ was called"
 (helm-projectile-on)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+;; god-mode experiment
+(global-set-key (kbd "<escape>") 'god-mode-all)
+(with-eval-after-load 'god-mode
+  (define-key god-local-mode-map (kbd ".") 'repeat))
+
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
