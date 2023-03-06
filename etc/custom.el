@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata"))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal :foundry "CYRE" :family "Inconsolata"))))
  '(cursor ((t (:background "#E17B1D")))))
 
 (custom-set-variables
@@ -13,41 +13,36 @@
  ;; If there is more than one, they won't work right.
  '(Buffer-menu-name-width 32)
  '(Buffer-menu-size-width 7)
- '(TeX-engine (quote xetex))
+ '(TeX-engine 'xetex)
  '(TeX-save-query nil)
  '(TeX-view-program-selection
-   (quote
-    (((output-dvi has-no-display-manager)
+   '(((output-dvi has-no-display-manager)
       "dvi2tty")
      ((output-dvi style-pstricks)
       "dvips and gv")
      (output-dvi "xdvi")
      (output-pdf "PDF Tools")
-     (output-html "xdg-open"))))
+     (output-html "xdg-open")))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(apropos-do-all t)
- '(auth-sources (quote ("~/.authinfo.gpg" password-store)))
+ '(auth-sources '("~/.authinfo.gpg"))
+ '(auto-insert-mode t)
  '(auto-revert-interval 2)
- '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup"))))
+ '(backup-directory-alist '((".*" . "~/.emacs.d/backup")))
  '(battery-mode-line-format "[%b%p%% %t]")
  '(bbdb-ignore-message-alist
-   (quote
-    (("From" . ".*@linkedin.com")
+   '(("From" . ".*@linkedin.com")
      ("From" . ".*@debbugs.gnu.org")
      ("From" . ".*@meetup.com")
-     ("From" . ".*@gwene.org"))))
+     ("From" . ".*@gwene.org")))
  '(bbdb-mua-pop-up nil)
- '(bbdb-update-records-p (quote create))
+ '(bbdb-update-records-p 'create)
  '(blink-cursor-mode nil)
- '(browse-url-browser-function (quote browse-url-firefox))
- '(c-default-style
-   (quote
-    ((java-mode . "gnu")
-     (awk-mode . "awk")
-     (other . "gnu"))))
+ '(browse-url-browser-function 'browse-url-firefox)
+ '(c-default-style '((java-mode . "gnu") (awk-mode . "awk") (other . "gnu")))
  '(calendar-latitude 42)
  '(calendar-longitude -76)
  '(cider-prompt-for-symbol nil)
@@ -56,44 +51,47 @@
  '(cider-repl-prompt-function (lambda (ns) (format "(in-ns '%s) ;; π
 " ns)))
  '(cider-save-file-on-load t)
+ '(clojure-refactor-map-prefix "")
  '(comint-prompt-read-only t)
- '(compilation-scroll-output (quote first-error))
+ '(compilation-scroll-output 'first-error)
  '(compile-command "make -k -j4")
- '(confirm-kill-emacs (quote yes-or-no-p))
+ '(confirm-kill-emacs 'yes-or-no-p)
+ '(counsel-projectile-mode t nil (counsel-projectile))
  '(current-language-environment "UTF-8")
  '(custom-safe-themes
-   (quote
-    ("39fe48be738ea23b0295cdf17c99054bb439a7d830248d7e6493c2110bfed6f8" default)))
- '(debbugs-gnu-default-packages (quote ("guix-patches")))
+   '("39fe48be738ea23b0295cdf17c99054bb439a7d830248d7e6493c2110bfed6f8" default))
+ '(debbugs-gnu-default-packages '("guix-patches"))
  '(debug-on-error nil)
  '(default-input-method "latin-prefix")
  '(display-battery-mode t)
  '(doc-view-continuous t)
+ '(ebdb-ignore-header-alist
+   '((sender . "invitations@linkedin.com")
+     (sender . "noreply@github.com")))
+ '(ebdb-mua-auto-update-p 'update)
  '(eldoc-idle-delay 0.1)
  '(electric-pair-mode t)
  '(elfeed-feeds
-   (quote
-    ("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "http://emacshorrors.com/feed.atom")))
+   '("https://wingolog.org/feed/atom" "https://www.youtube.com/feeds/videos.xml?channel_id=UCAEtp9qQtNwZvnR3A3pWCtA" "http://endlessparentheses.com/atom.xml" "http://www.awkwardzombie.com/awkward.php" "http://pbfcomics.com/feed/" "https://what-if.xkcd.com/feed.atom" "http://emacsninja.com/feed.atom" "http://blog.z3bra.org/rss/feed.xml" "http://existentialcomics.com/rss.xml" "http://emacshorrors.com/feed.atom"))
  '(enable-recursive-minibuffers t)
- '(epa-pinentry-mode (quote loopback))
+ '(epa-pinentry-mode 'loopback)
+ '(epg-pinentry-mode 'loopback)
  '(erc-autojoin-channels-alist
-   (quote
-    (("freenode" "#emacs" "#guix" "#lobsters" "#clojure" "#gnus"))))
- '(erc-autojoin-timing (quote ident))
+   '(("libera.chat" "#erc" "#lispcafe" "#emacs" "#clojure" "#guix" "#lobsters" "#gnus")
+     ("freenode" "#emacs" "#guix" "#lobsters" "#clojure" "#gnus")))
+ '(erc-autojoin-timing 'ident)
  '(erc-echo-timestamps t)
  '(erc-hide-timestamps t)
  '(erc-image-inline-rescale 256)
- '(erc-join-buffer (quote bury))
- '(erc-lurker-hide-list (quote ("JOIN" "PART" "QUIT")))
+ '(erc-join-buffer 'bury)
+ '(erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
  '(erc-mode-hook
-   (quote
-    (erc-munge-invisibility-spec erc-move-to-prompt-setup erc-button-setup pcomplete-erc-setup erc-imenu-setup visual-line-mode)))
+   '(erc-munge-invisibility-spec erc-move-to-prompt-setup erc-button-setup pcomplete-erc-setup erc-imenu-setup visual-line-mode))
  '(erc-modules
-   (quote
-    (completion services hl-nicks netsplit fill button match track readonly networks ring autojoin noncommands irccontrols move-to-prompt stamp menu list image)))
+   '(completion spelling hl-nicks netsplit fill button match track readonly networks ring autojoin noncommands irccontrols move-to-prompt stamp menu list))
  '(erc-networks-alist
-   (quote
-    ((4-irc "4-irc.com")
+   '((liberachat "libera.chat")
+     (4-irc "4-irc.com")
      (A5KNet "a5knet.com")
      (AbleNet "ablenet.org")
      (Accessirc "accessirc.net")
@@ -345,15 +343,32 @@
      (ZAnetOrg "zanet.org.za")
      (ZiRC "zirc.org")
      (ZUHnet "zuh.net")
-     (Zurna "zurna.net"))))
+     (Zurna "zurna.net")))
  '(erc-nick "atw")
+ '(erc-nickserv-alist
+   '((liberachat "" "This\\s-nickname\\s-is\\s-registered.\\s-Please\\s-choose" "NickServ" "IDENTIFY" nil nil "You\\s-are\\s-now\\s-identified\\s-for\\s-")
+     (Ars nil nil "Census" "IDENTIFY" nil nil nil)
+     (Austnet "NickOP!service@austnet.org" "/msg\\s-NickOP@austnet.org\\s-identify\\s-<password>" "nickop@austnet.org" "identify" nil nil nil)
+     (Azzurra "NickServ!service@azzurra.org" "/ns\\s-IDENTIFY\\s-password" "NickServ" "IDENTIFY" nil nil nil)
+     (BitlBee nil nil "&bitlbee" "identify" nil nil nil)
+     (BRASnet "NickServ!services@brasnet.org" "/NickServ\\s-IDENTIFY\\s-senha" "NickServ" "IDENTIFY" nil "" nil)
+     (DALnet "NickServ!service@dal.net" "/msg\\s-NickServ@services.dal.net\\s-IDENTIFY\\s-<password>" "NickServ@services.dal.net" "IDENTIFY" nil nil nil)
+     (freenode "NickServ!NickServ@services." "This\\s-nickname\\s-is\\s-registered.\\s-Please\\s-choose" "NickServ" "IDENTIFY" nil nil "You\\s-are\\s-now\\s-identified\\s-for\\s-")
+     (GalaxyNet "NS!nickserv@galaxynet.org" "Please\\s-change\\s-nicks\\s-or\\s-authenticate." "NS@services.galaxynet.org" "AUTH" t nil nil)
+     (GRnet "NickServ!service@irc.gr" "This\\s-nickname\\s-is\\s-registered\\s-and\\s-protected." "NickServ" "IDENTIFY" nil nil "Password\\s-accepted\\s--\\s-you\\s-are\\s-now\\s-recognized.")
+     (iip "Trent@anon.iip" "type\\s-/squery\\s-Trent\\s-identify\\s-<password>" "Trent@anon.iip" "IDENTIFY" nil "SQUERY" nil)
+     (OFTC "NickServ!services@services.oftc.net" nil "NickServ" "IDENTIFY" nil nil "You\\s-are\\s-successfully\\s-identified\\s-as\\s-")
+     (Rizon "NickServ!service@rizon.net" "This\\s-nickname\\s-is\\s-registered\\s-and\\s-protected." "NickServ" "IDENTIFY" nil nil "Password\\s-accepted\\s--\\s-you\\s-are\\s-now\\s-recognized.")
+     (QuakeNet nil nil "Q@CServe.quakenet.org" "auth" t nil nil)
+     (SlashNET "NickServ!services@services.slashnet.org" "/msg\\s-NickServ\\s-IDENTIFY\\s-password" "NickServ@services.slashnet.org" "IDENTIFY" nil nil nil)))
  '(erc-notifications-mode t)
- '(erc-pals (quote ("Apteryx" "marusisch" "technomancy")))
+ '(erc-pals '("Apteryx" "marusisch" "technomancy"))
  '(erc-prompt-for-nickserv-password nil)
  '(erc-rename-buffers t)
+ '(erc-server "liberachat")
  '(erc-server-alist
-   (quote
-    (("4-irc: Random server" 4-irc "4-irc.com" 6667)
+   '(("Libera Chat" liberachat "irc.libera.chat" 6697)
+     ("4-irc: Random server" 4-irc "4-irc.com" 6667)
      ("A5KNet: Random server" A5KNet "irc.a5knet.com"
       ((6660 6669)))
      ("AbleNet: Random server" AbleNet "irc.ablenet.org" 6667)
@@ -1025,14 +1040,13 @@
      ("ZiRC: Random server" ZiRC "irc.zirc.org"
       ((6660 6669)))
      ("ZUHnet: Random server" ZUHnet "irc.zuh.net" 6667)
-     ("Zurna: Random server" Zurna "irc.zurna.net" 6667))))
- '(erc-server-connect-function (quote erc-open-tls-stream))
+     ("Zurna: Random server" Zurna "irc.zurna.net" 6667)))
+ '(erc-server-connect-function 'erc-open-tls-stream)
  '(erc-server-reconnect-attempts t)
  '(erc-server-reconnect-timeout 10)
  '(erc-services-mode t)
  '(erc-track-faces-priority-list
-   (quote
-    (erc-error-face
+   '(erc-error-face
      (erc-nick-default-face erc-current-nick-face)
      erc-current-nick-face erc-keyword-face
      (erc-nick-default-face erc-pal-face)
@@ -1043,14 +1057,13 @@
      (erc-nick-default-face erc-default-face)
      erc-default-face erc-action-face
      (erc-nick-default-face erc-fool-face)
-     erc-fool-face erc-input-face erc-prompt-face)))
- '(erc-track-priority-faces-only (quote all))
+     erc-fool-face erc-input-face erc-prompt-face))
+ '(erc-track-priority-faces-only 'all)
  '(erc-track-shorten-start 8)
  '(erc-user-full-name "Alex ter Weele")
- '(evil-want-fine-undo (quote fine))
+ '(evil-want-fine-undo 'fine)
  '(flymake-allowed-file-name-masks
-   (quote
-    (("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init nil nil)
+   '(("\\.\\(?:c\\(?:pp\\|xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init nil nil)
      ("\\.xml\\'" flymake-xml-init nil nil)
      ("\\.html?\\'" flymake-xml-init nil nil)
      ("\\.cs\\'" flymake-simple-make-init nil nil)
@@ -1059,94 +1072,120 @@
      ("\\.h\\'" flymake-master-make-header-init flymake-master-cleanup nil)
      ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup nil)
      ("\\.tex\\'" flymake-simple-tex-init nil nil)
-     ("\\.idl\\'" flymake-simple-make-init nil nil))))
- '(fringe-mode (quote (nil . 0)) nil (fringe))
+     ("\\.idl\\'" flymake-simple-make-init nil nil)))
+ '(fringe-mode '(nil . 0) nil (fringe))
  '(gdb-many-windows t)
- '(geiser-default-implementation (quote guile))
+ '(geiser-default-implementation 'guile)
  '(geiser-mode-smart-tab-p t)
  '(global-hl-todo-mode t)
  '(global-linum-mode nil)
- '(gnus-group-mode-hook (quote (gnus-agent-mode)))
+ '(gnus-fetch-old-headers t)
+ '(gnus-group-mode-hook '(gnus-agent-mode))
  '(gnus-group-sort-function
-   (quote
-    (gnus-group-sort-by-method gnus-group-sort-by-server gnus-group-sort-by-alphabet)))
+   '(gnus-group-sort-by-method gnus-group-sort-by-server gnus-group-sort-by-alphabet))
  '(gnus-message-archive-group nil)
  '(gnus-parameters
-   (quote
-    (("nnreddit.*"
-      (display
-       (quote all))
-      (gnus-summary-goto-unread
-       (quote never))))))
+   '(("nnreddit.*"
+      (display 'all)
+      (gnus-summary-goto-unread 'never))))
+ '(gnus-refer-thread-use-nnir t)
+ '(gnus-refer-thread-use-search t)
  '(gnus-save-newsrc-file nil)
- '(gnus-secondary-select-methods (quote ((nnimap "imap.gmail.com" (nnimap-stream ssl)))))
- '(gnus-select-method (quote (nnnil "")))
+ '(gnus-secondary-select-methods '((nnimap "imap.gmail.com" (nnimap-stream ssl))))
+ '(gnus-select-method '(nnnil ""))
  '(gnus-startup-file "~/.emacs.d/gnus/.newsrc")
  '(gnutls-algorithm-priority "SECURE128")
  '(gnutls-min-prime-bits 1024)
  '(gnutls-verify-error t)
- '(guix-package-arguments
-   (quote
-    ("--manifest=/home/alex/src/guix-conf/user-services.scm")))
- '(helm-external-programs-associations (quote (("html" . "icecat"))))
- '(help-mode-hook (quote (form-feed-mode)))
+ '(guix-package-arguments '("--manifest=/home/alex/src/guix-conf/user-services.scm"))
+ '(helm-external-programs-associations '(("html" . "icecat")))
+ '(help-mode-hook '(form-feed-mode))
  '(hs-isearch-open t)
  '(indent-tabs-mode nil)
- '(ispell-program-name "aspell")
- '(magit-tag-arguments (quote ("--annotate" "--sign")))
- '(menu-bar-mode t)
+ '(ispell-program-name "hunspell")
+ '(magit-clone-default-directory "~/src")
+ '(magit-tag-arguments '("--annotate" "--sign"))
+ '(menu-bar-mode nil)
  '(message-kill-buffer-on-exit t)
  '(mouse-yank-at-point t)
- '(mpc-host "/tmp/mpd.socket")
- '(network-security-level (quote medium))
+ '(mpc-host "~/.mpd/socket")
+ '(mpc-songs-format
+   "%2{Disc--}%3{Track} %-5{Time} %50{Title} %20{Album} %20{Artist} %5{Date}")
+ '(native-comp-async-report-warnings-errors 'silent)
+ '(network-security-level 'medium)
  '(nnreddit-preview-width 780)
  '(notmuch-saved-searches
-   (quote
-    ((:name "inbox" :query "tag:inbox" :key "i")
+   '((:name "inbox" :query "tag:inbox" :key "i")
      (:name "unread" :query "tag:unread,inbox" :key "u")
      (:name "flagged" :query "tag:flagged" :key "f")
      (:name "sent" :query "tag:sent" :key "t")
      (:name "drafts" :query "tag:draft" :key "d")
-     (:name "all mail" :query "*" :key "a"))))
+     (:name "all mail" :query "*" :key "a")))
  '(notmuch-search-oldest-first nil)
  '(notmuch-show-indent-messages-width 2)
  '(nxml-sexp-element-flag t)
  '(nxml-slash-auto-complete-flag t)
- '(org-agenda-files (quote ("~/.emacs.d/org")))
- '(orgstruct-setup-hook (quote (auto-fill-mode flyspell-mode)))
+ '(org-agenda-files '("~/.emacs.d/org"))
+ '(org-roam-db-autosync-mode t)
+ '(org-roam-directory "/home/alex/notes")
+ '(orgstruct-setup-hook '(auto-fill-mode flyspell-mode))
  '(package-archives
-   (quote
-    (("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   (quote
-    (erc-image punpun-theme cobol-mode debbugs ercn leerzeichen geiser paredit erc-hl-nicks form-feed chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch org)))
+   '(cobol-mode debbugs ercn leerzeichen geiser paredit erc-hl-nicks chess mvn helm evil elfeed auctex magit pdf-tools tuareg notmuch org))
+ '(password-store-password-length 32)
  '(proced-auto-update-flag t)
+ '(proced-filter 'all-running)
  '(safe-local-variable-values
-   (quote
-    ((eval form-feed-mode t)
+   '((eval let
+           ((root-dir-unexpanded
+             (locate-dominating-file default-directory ".dir-locals.el")))
+           (when root-dir-unexpanded
+             (let*
+                 ((root-dir
+                   (expand-file-name root-dir-unexpanded))
+                  (root-dir*
+                   (directory-file-name root-dir)))
+               (unless
+                   (boundp 'geiser-guile-load-path)
+                 (defvar geiser-guile-load-path 'nil))
+               (make-local-variable 'geiser-guile-load-path)
+               (require 'cl-lib)
+               (cl-pushnew root-dir* geiser-guile-load-path :test #'string-equal))))
+     (eval setq-local guix-directory
+           (locate-dominating-file default-directory ".dir-locals.el"))
+     (eval form-feed-mode t)
      (eval push "/home/alex/src/guix" geiser-guile-load-path)
      (eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
      (eval modify-syntax-entry 126 "'")
-     (bug-reference-bug-regexp . "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>"))))
+     (bug-reference-bug-regexp . "<https?://\\(debbugs\\|bugs\\)\\.gnu\\.org/\\([0-9]+\\)>")))
  '(savehist-mode t)
  '(scroll-bar-mode nil)
  '(scroll-conservatively 101)
- '(send-mail-function (quote smtpmail-send-it))
+ '(send-mail-function 'smtpmail-send-it)
  '(show-paren-mode t)
  '(slack-buffer-emojify t)
  '(smtpmail-smtp-server "smtp.gmail.com")
  '(smtpmail-smtp-service 465)
- '(smtpmail-stream-type (quote ssl))
+ '(smtpmail-stream-type 'ssl)
+ '(tab-bar-mode t)
  '(tls-checktrust t)
  '(tls-program nil)
  '(tool-bar-mode nil)
  '(url-queue-timeout 10)
  '(use-file-dialog nil)
- '(whitespace-global-modes (quote (text-mode prog-mode)))
- '(whitespace-style (quote (face lines-tail trailing tabs)))
- '(znc-servers
-   (quote
-    (("localhost" 6660 nil
-      ((freenode "root" "hunter2")))))))
+ '(what-cursor-show-names t)
+ '(whitespace-global-modes '(text-mode prog-mode))
+ '(whitespace-style '(face lines-tail trailing tabs))
+ '(winner-mode t)
+ '(znc-servers '(("localhost" 6660 nil ((freenode "root" "hunter2")))))
+ '(zoneinfo-style-world-list
+   '(("America/Los_Angeles" "Seattle")
+     ("America/New_York" "New York")
+     ("Europe/London" "London")
+     ("Etc/UTC" "UTC")
+     ("Europe/Paris" "Paris")
+     ("Asia/Calcutta" "Bangalore")
+     ("Asia/Tokyo" "Tokyo"))))

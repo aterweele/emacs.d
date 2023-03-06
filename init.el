@@ -7,6 +7,7 @@
 
 ;; other loads are by category
 (push "~/.emacs.d/startup/" load-path)
+(push "~/src/monroe" load-path)
 
 (setq lisp-modes-hooks
       '(lisp-mode-hook
@@ -22,6 +23,9 @@
     [remap reposition-window]
     'paredit-recenter-on-defun))
 
+(require 'monroe)
+(add-hook 'clojure-mode-hook 'clojure-enable-monroe)
+
 ;;; mail client
 ;(require 'notmuch)
 ;;; gmail-like double-clicking on message to show/hide it
@@ -35,13 +39,19 @@
 (global-set-key (kbd "<mouse-8>") 'previous-buffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-(require 'helm-config)
-(helm-mode 1)
-(define-key global-map [remap find-file] 'helm-find-files)
-(global-set-key (kbd "C-c o") 'occur)
-(define-key global-map [remap occur] 'helm-occur)
-(define-key global-map [remap list-buffers] 'helm-buffers-list)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(require 'ivy)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(define-key global-map [remap list-buffers] 'ivy-switch-buffer)
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(require 'counsel)
+(counsel-mode)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(define-key global-map (kbd "C-c o") 'occur)
+(define-key global-map [remap occur] 'swiper-isearch-thing-at-point)
 
 ;; wouldn't it make sense for the key with a little picture of a
 ;; dropdown to open a little dropdown?
@@ -97,8 +107,6 @@
 
 (require 'secret)
 
-(require 'erc-image)
-
 ;; other settings in custom
 (setq custom-file "~/.emacs.d/etc/custom.el")
 (load custom-file)
@@ -119,13 +127,14 @@
 (setq org-mode-hook '(auto-fill-mode flyspell-mode))
 ;; (setq org-mode-hook '(visual-line-mode variable-pitch-mode))
 
-(bbdb-initialize 'gnus 'message)
-(bbdb-mua-auto-update-init 'gnus 'message)
+;;; switching to ebdb
+;; (bbdb-initialize 'gnus 'message)
+;; (bbdb-mua-auto-update-init 'gnus 'message)
+(require 'ebdb-gnus)
+(require 'ebdb-message)
 
 ;; projectile
-(projectile-global-mode)
-(require 'helm-projectile)
-(helm-projectile-on)
+(projectile-mode 1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; god-mode experiment
@@ -139,7 +148,7 @@
   (interactive)
   (set-face-attribute 'default (selected-frame) :height 200))
 
-(global-set-key (kbd "C-c M-p c") 'auth-source-pass-copy)
+(global-set-key (kbd "C-c M-p c") 'password-store-copy)
 
 ;; disabled functions cruft
 (put 'narrow-to-page 'disabled nil)
